@@ -5,6 +5,6 @@
 #define Y [1] + 2
 #define Z [2] + 3
 
-static long resultado = 0 +
+static long resultado =
 #include "ej2.input"
 ;
