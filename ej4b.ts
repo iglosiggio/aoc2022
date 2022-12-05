@@ -1,4 +1,5 @@
-import { Lines, Is, GTE, __BlockSize, Nat } from './ej4'
+import { Is, GTE, __BlockSize, Nat, StringSplit } from './ej4'
+import { Input } from './ej4.input'
 
 // Given one of the lines from the input set check if the ranges have full overlap!
 type RangesColide<A extends 1[], B extends 1[], C extends 1[], D extends 1[]> =
@@ -24,4 +25,6 @@ type Exercise<Input> =
       : [...Block, ...Exercise<Remaining>]
     : never
 
+type Lines = StringSplit<Input, '\n'>
+// The type Result only allows the correct answer as a valid value
 type Result = Exercise<Lines>["length"]
