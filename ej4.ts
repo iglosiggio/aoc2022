@@ -21,7 +21,7 @@ type _60to69 = CountToTen<[..._50to59[9], 1]>
 type _70to79 = CountToTen<[..._60to69[9], 1]>
 type _80to89 = CountToTen<[..._70to79[9], 1]>
 type _90to99 = CountToTen<[..._80to89[9], 1]>
-type Nat = [
+export type Nat = [
     ..._00to09,
     ..._10to19,
     ..._20to29,
@@ -35,14 +35,14 @@ type Nat = [
     [..._90to99[9], 1]
 ]
 // We want to use `extends` as a boolean, this is a helper
-type Is<A, B> = A extends B ? true : false
+export type Is<A, B> = A extends B ? true : false
 // If a number has AT LEAST `N` ones then it is AT LEAST N :)
 type AtLeast<N extends 1[]> = [...N, ...1[]]
 // We can build the >= relationship using our representation of natural numbers
-type GTE<A, B extends 1[]> = Is<A, AtLeast<B>>
+export type GTE<A, B extends 1[]> = Is<A, AtLeast<B>>
 
 // Unbounded recursion is banned by Typescript, doing block-processing helps us sidestep some limits
-type __BlockSize = Nat[64]
+export type __BlockSize = Nat[64]
 
 type __ExerciseBlock<Input, BlockCount extends 1[]> =
   BlockCount extends [1, ...infer Rest extends 1[]]
@@ -84,7 +84,7 @@ type StringSplit<Str, Delim extends string> =
       : [...Block, ...StringSplit<Remaining, Delim>]
     : never
 
-type Lines = StringSplit<Input, '\n'>
+export type Lines = StringSplit<Input, '\n'>
 // The type Result only allows the correct answer as a valid value
 type Result = Exercise<Lines>["length"]
 
