@@ -1,28 +1,25 @@
-:- set_prolog_flag(double_quotes, codes).
 :- use_module(library(dcg/basics)).
 
 main_file(Stacks, Commands) -->
     stacks(Stacks),
     "\n",
-   commands(Commands).
+    commands(Commands).
 
 stacks(Stacks) -->
     crate_line(Crates),
-    (stacks(Remaining) | stack_names(Remaining)),
+    (stacks(Remaining) | empty_stacks(Remaining)),
     {maplist(append, Crates, Remaining, Stacks)}.
 crate_line([X|Crates]) -->
     crate(X), (" ", crate_line(Crates) | "\n", {Crates = []}).
 crate([X]) --> "[", [CharCode], "]", {name(X, [CharCode])}.
 crate([]) --> "   ".
 
-stack_names([[]|EmptyStacks]) -->
-    stack_name, (" ", stack_names(EmptyStacks) | "\n", {EmptyStacks = []}).
-stack_name --> " ", [_], " ".
+empty_stacks([[]|EmptyStacks]) -->
+    " ", [_], " ", (" ", empty_stacks(EmptyStacks) | "\n", {EmptyStacks = []}).
 
 commands([command(Amount, From, To)|XS]) -->
     "move ", integer(Amount), " from ", integer(From), " to ", integer(To), "\n",
-    commands(XS).
-commands([]) --> [].
+    (commands(XS) | {XS = []}).
 
 move_ej1(command(Amount, From, To), Stacks, NewStacks) :-
     nth1(From, Stacks, FromStack),
