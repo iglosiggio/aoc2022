@@ -14,7 +14,7 @@ BEGIN {
 	filenum++
 }
 /^dir/ {
-	dirnames[dirnum] = cwd $2
+	dirnames[dirnum] = cwd $2 "/"
 	dirnum++
 }
 END {
@@ -48,5 +48,4 @@ END {
 		}
 	}
 	print "Ex2: " best_directory
-	
 }
