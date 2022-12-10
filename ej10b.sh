@@ -1,22 +1,21 @@
 #!/bin/env bash
 
-cycle=-1
+cycle=0
 x=1
 
 addx () {
 	noop
-	x=$((x + $1))
 	noop
+	x=$((x + $1))
 }
 
 noop () {
+	[ $((x-1)) = $cycle -o $x = $cycle -o $((x+1)) = $cycle ] && echo -n '#' || echo -n '.'
 	cycle=$((cycle+1))
 	if [ $cycle = 40 ]; then
 		cycle=0
 		echo
 	fi
-	[ $((x-1)) = $cycle -o $x = $cycle -o $((x+1)) = $cycle ] && echo -n '#' || echo -n '.'
 }
 
-noop
 . ./ej10.input
